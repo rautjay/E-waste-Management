@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="user/base::layout(~{::body})">
+<head>
+<meta charset="UTF-8" />
+<title>Update Profile</title>
+</head>
+<body>
+
+	<div th:onclick="popupalert()" class="card mt-2 ml-3 mr-3">
+		<div class="card-body" style="background-color: #f5f5f5;">
+			<h1 class="text-center" style="color: #673ab7;">Update Your
+				Profile</h1>
+			<div class="container-fluid mt-2">
+				<div class="row">
+					<div class="col-md-10 offset-md-1">
+
+						<form id="requestform" method="post"
+							th:action="@{/user/process_updateprofile}" class="mt-2"
+							th:object="${user}">
+
+
+							<div class="container">
+								<div class="row">
+
+
+
+
+									<div class="col-md-10">
+
+										<!--make 2 columns of 6 -->
+
+
+										<!-- make another column for textbox and label -->
+
+										<div class="row mt-3">
+											<label for="name_field"
+												class="label col-md-2 control-label lable-field">
+												Name </label>
+											<div class="col-5">
+												<input name="userFirstname" id="name_field" type="text"
+													Class="form-control"
+													th:classappend="${#fields.hasErrors('userFirstname')? 'is-invalid':''}"
+													placeholder="First name" th:value="${user.userFirstname}"
+													readonly />
+												<div class="invalid-feedback"
+													th:each="e:${#fields.errors('userFirstname')}"
+													th:text="${e}"></div>
+											</div>
+
+											<div class="col-5">
+												<input name="userLastname" id="name_field" type="text"
+													Class="form-control"
+													th:classappend="${#fields.hasErrors('userLastname')? 'is-invalid':''}"
+													placeholder="Last name" th:value="${user.userLastname}"
+													readonly />
+												<div class="invalid-feedback"
+													th:each="e:${#fields.errors('userLastname')}"
+													th:text="${e}"></div>
+											</div>
+										</div>
+
+										<div class="row mt-4">
+											<label for="dob_field"
+												class="label col-md-2 control-label lable-field">DOB</label>
+											<div class="col-md-6">
+												<input name="userDOB" id="dob_field" type="date"
+													class="form-control"
+													th:classappend="${#fields.hasErrors('userDOB')? 'is-invalid':''}"
+													th:value="${user.userDOB}" />
+												<div class="invalid-feedback"></div>
+
+											</div>
+										</div>
+
+
+										<div class="row mt-4">
+											<label for="userMobile_field"
+												class="label col-md-2 control-label lable-field">Mobile</label>
+											<div class="col-md-6">
+												<input name="usermobile" type="number" class="form-control"
+													th:classappend="${#fields.hasErrors('usermobile')? 'is-invalid':''}"
+													id="userMobile_field" placeholder="mobile number"
+													th:value="${user.usermobile}" />
+												<div class="invalid-feedback"
+													th:each="e:${#fields.errors('usermobile')}" th:text="${e}">
+												</div>
+
+
+											</div>
+										</div>
+
+										<div class="row mt-4">
+											<label for="Email_field"
+												class="label col-md-2 control-label lable-field">Email</label>
+											<div class="col-md-6">
+												<input name="email" type="email" id="Email_field"
+													class="form-control"
+													th:classappend="${#fields.hasErrors('email')? 'is-invalid':''}"
+													placeholder="Enter your Email" required
+													th:value="${user.email}" readonly />
+												<div class="invalid-feedback"
+													th:each="e:${#fields.errors('email')}" th:text="${e}"></div>
+
+											</div>
+										</div>
+										<div class="form-group row mt-4">
+											<label for="userpassword_field"
+												class="label col-md-2 control-label lable-field">Password</label>
+											<div class="col-md-6">
+												<input name="userpassword" type="password"
+													id="userpassword_field" class="form-control"
+													th:classappend="${#fields.hasErrors('userpassword')? 'is-invalid':''}"
+													placeholder="Enter your password"
+													th:value="${user.userpassword}" readonly />
+												<div class="invalid-feedback"
+													th:each="e:${#fields.errors('userpassword')}"
+													th:text="${e}"></div>
+
+											</div>
+										</div>
+
+
+
+										<div class="form-row mt-4">
+											<label for="userAddress"
+												class="label col-md-2 control-label lable-field">Address
+											</label>
+											<div class="col-3">
+												<input name="userAddress.flatno" type="text"
+													class="form-control"
+													th:classappend="${#fields.hasErrors('userAddress.flatno')? 'is-invalid':''}"
+													placeholder="flat number"
+													th:value="${user.userAddress.flatno}" />
+												<div class="invalid-feedback"
+													th:each="e:${#fields.errors('userAddress.flatno')}"
+													th:text="${e}"></div>
+
+											</div>
+											<div class="col-4">
+												<input name="userAddress.streetname" type="text"
+													class="form-control"
+													th:classappend="${#fields.hasErrors('userAddress.streetname')? 'is-invalid':''}"
+													placeholder="street name"
+													th:value="${user.userAddress.streetname}" />
+												<div class="invalid-feedback"
+													th:each="e:${#fields.errors('userAddress.streetname')}"
+													th:text="${e}"></div>
+
+											</div>
+											<div class="col-3">
+												<input name="userAddress.landmark" type="text"
+													class="form-control"
+													th:classappend="${#fields.hasErrors('userAddress.landmark')? 'is-invalid':''}"
+													placeholder="Landmark"
+													th:value="${user.userAddress.landmark}" />
+												<div class="invalid-feedback"
+													th:each="e:${#fields.errors('userAddress.landmark')}"
+													th:text="${e}"></div>
+
+											</div>
+										</div>
+										<div class="form-row mt-4">
+											<label class="col-md-2 control-label"> </label>
+											<div class="col-4">
+												<input name="userAddress.city" type="text"
+													class="form-control"
+													th:classappend="${#fields.hasErrors('userAddress.city')? 'is-invalid':''}"
+													placeholder="City" th:value="${user.userAddress.city}" />
+												<div class="invalid-feedback"
+													th:each="e:${#fields.errors('userAddress.city')}"
+													th:text="${e}"></div>
+
+											</div>
+
+											<div class="col-5">
+												<input name="state" type="text"
+													class="form-control"
+													th:classappend="${#fields.hasErrors('state')? 'is-invalid':''}"
+													placeholder="State" th:value="${user.state}" />
+												<div class="invalid-feedback"
+													th:each="e:${#fields.errors('state')}"
+													th:text="${e}"></div>
+
+											</div>
+										</div>
+
+
+									</div>
+
+								</div>
+							</div>
+
+
+							<!-- Modal -->
+
+
+							<div class="modal fade" id="exampleModal" tabindex="-1"
+								role="dialog" aria-labelledby="exampleModalLabel"
+								aria-hidden="true">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">ARE YOU
+												SURE??</h5>
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">The data entered will be lost!!
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">Cancel</button>
+											<button type="submit" class="btn btn-primary">Conform</button>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+							<button type="submit" class="btn btn-info btn btn-block mt-4">UPDATE
+								HERE</button>
+
+							<!-- Button trigger modal -->
+							<button type="reset" class="btn btn-success btn btn-block mt-1"
+								data-toggle="modal" data-target="#exampleModal">RESET
+								HERE</button>
+
+
+
+						</form>
+					</div>
+
+				</div>
+
+
+			</div>
+
+		</div>
+
+	</div>
+	<!-- onclick sidebar in update profile show popupmsg -->
+<script>
+$(document).ready(()=>{
+$(".itam").addClass("alert");
+});
+
+
+</script>
+</body>
+</html>

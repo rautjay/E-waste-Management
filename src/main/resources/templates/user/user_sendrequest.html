@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org"
+	th:replace="user/base::layout(~{::body})">
+<head>
+	<meta charset="UTF-8" />
+	<title>send request</title>
+</head>
+<body>
+	<div class="card mt-2 ml-3 mr-3" >
+	 <div class="card-body" style="background-color:#f5f5f5;">
+	 <h1 class="text-center" style="color: #673ab7;"> SEND REQUEST!!!</h1>
+	 <div class="container-fluid mt-2">
+	 <div class="row">
+	 <div class="col-md-10 offset-md-1">
+	 
+	 <form id="requestform"  method="post" th:action="@{/user/process_request}" th:object="${request}"
+	 class="mt-2">
+	 
+	 
+	 
+	 <!-- for name -->
+	 
+	  
+	  <div class="form-row field">
+       <label class= "col-md-5"> <i class="fas fa-pencil-alt"></i> USER NAME:</label>
+       </div>
+   
+   <table class="table ml-5" style="color: purple;" >
+			<thead>
+				
+			</thead>
+			<tbody>
+			<tr>
+					
+					<th scope="col"><span th:text="${user.userFirstname}"></span>
+					<span
+						th:text="${user.userLastname}"></span></th>
+						</tr>
+			</tbody>
+	</table>  
+<!-- 	name ends here -->
+  
+<!-- for address field    -->
+  <div class="form-row field">
+       <label class= "col-md-5 mt-2" > <i class="fas fa-map-marker-alt"></i> ADDRESS:</label>
+       </div>
+   
+
+    
+<table class="table ml-5" style="color: purple">
+			<thead>
+				
+			</thead>
+			<tbody>
+			
+				<tr>
+					
+					<th scope="col">'<span th:text="${user.userAddress.flatno}"></span>',
+					<span  th:text="${user.userAddress.streetname}"></span>,
+					<span  th:text="${user.userAddress.landmark}"></span>,
+					<span  th:text="${user.userAddress.city}"></span>,
+					<span  th:text="${user.state}"></span>.
+					 
+				</th>
+				</tr>
+				
+
+
+			</tbody>
+		</table>
+  
+   <div class="form-row field">
+       <label class= "col-md-" > <i class="fas fa-edit"></i> DESCRIPTION:</label>
+       </div>
+         
+         <div class="form-row col-md-11 mt-3 ml-4">
+    
+    <textarea id="mytextarea" name="Request" cols="60" rows="6" class="form-control" th:classappend="${#fields.hasErrors('Request')? 'is-invalid':''}" placeholder="Write the details about your waste product" required></textarea>
+     <div class="invalid-feedback" th:each="e:${#fields.errors('Request')}" th:text="${e}">
+   </div>
+  </div>
+<!--    mobile number conform -->
+ <div class="form-row field">
+       <label class= "col-md mt-3" > <i class="fas fa-mobile-alt"></i> MOBILE NUMBER:</label>
+       </div>
+        <div class="form-group ml-5">
+        
+    
+    <input id="New_mobile" name="New_mobile" type="number" th:value="${user.usermobile}"  class="form-control col-md-5" 	th:classappend="${#fields.hasErrors('New_mobile')? 'is-invalid':''}" required>
+    <div class="invalid-feedback" th:each="e:${#fields.errors('New_mobile')}" th:text="${e}">
+   </div>
+    <small class="text-muted">
+     Edit above mobile only for this request..
+    </small>
+  </div>
+
+  
+   <!--  <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="gridCheck">
+      <label class="form-check-label" for="gridCheck">
+        Check me out
+      </label>
+    </div> -->
+   
+<!-- Button trigger modal -->
+
+  <button   id="go" type="submit" class="btn btn-success btn btn-block mt-2">
+  SEND REQUEST
+ 
+</button>
+<!-- Modal -->
+
+
+<div    class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">ARE YOU SURE??</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Mobile Number Entered Is different From Registered Mobile Number.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button id="conform_button" type="button" class="btn btn-primary">Conform</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+<button type="reset" class="btn btn-info btn btn-block mt-1">RESET HERE</button>
+ 
+ 
+
+</form>
+   </div>
+       
+   </div>
+
+    
+   </div>
+       
+   </div>
+    
+   
+     
+      
+   </div>
+   
+<!--    Scrit for alert pop up msg -->
+<script type="text/javascript">
+
+
+
+var oldnumber = [[${user.usermobile}]] ;
+var changenumber = false;
+
+$('#requestform').on('submit', function(e) {
+   var newnumber = $('#New_mobile').val();
+
+    if(oldnumber != newnumber && !changenumber){
+        e.preventDefault();
+        // ask for confirmation
+        $('#mymodal').modal({'show': true});
+    }
+});
+$('#conform_button').click(function(){
+    changenumber = true;
+    $('#requestform').submit();
+});
+
+   
+</script>
+
+ <!-- function OpenPopup() {
+    var newnumber= $('#New_mobile');
+var oldnumber = [[${user.usermobile}]];
+        if(newnumber!=oldnumber){
+        $("#exampleModal").modal('show');
+        console.log(newnumber);
+       }
+    }
+ -->
+   
+</body>
+</html> 

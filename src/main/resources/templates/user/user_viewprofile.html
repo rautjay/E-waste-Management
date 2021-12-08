@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org"
+	th:replace="user/base::layout(~{::body})">
+<head>
+	<meta charset="UTF-8" />
+	<title></title>
+</head>
+<body>
+	
+	<div class="card mr-3 ml-3">
+		<div class="card-body">
+		
+		<h1 style="color: purple;"> <i class="fas fa-id-card fa-1x"></i>  Welcome, <span th:text="${user.userFirstname}"></span></h1>
+			<table class="table ml-1 mt-3">
+			<thead class="bg-info">
+				<tr>
+					<th scope="col">NAME:</th>
+					<th scope="col"><span th:text="${user.userFirstname}"></span>
+					<span
+						th:text="${user.userLastname}"></span></th>
+						</tr>
+			</thead>
+			<tbody class="bg-info">
+				<tr>
+					<th scope="col">DOB:</th>
+					<th scope="col"><span th:text="${user.userDOB}"></span></th>
+				</tr>
+				<tr>
+					<th scope="col">GENDER:</th>
+					<th scope="col"><span th:text="${user.usergender}"></span></th>
+				</tr>
+				<tr>
+					<th scope="col">MOBILE:</th>
+					<th scope="col"><span th:text="${user.usermobile}"></span></th>
+				</tr>
+				<tr>
+					<th scope="col">EMAIL:</th>
+					<th scope="col"><span th:text="${user.email}"></span></th>
+				</tr>
+				
+				<tr>
+					<th scope="col">ADDRESS:</th>
+					<th scope="col">'<span th:text="${user.userAddress.flatno}"></span>',
+					<span  th:text="${user.userAddress.streetname}"></span>,
+					<span  th:text="${user.userAddress.landmark}"></span>,
+					<span  th:text="${user.userAddress.city}"></span>,
+					<span  th:text="${user.state}"></span>.
+					 
+				</th>
+				</tr>
+				
+               
+
+			</tbody>
+		</table>
+		<form method="post" th:action="@{/user/update_profile}">
+		<div class="text-center">
+		<button type="submit" class="btn btn-danger ">EDIT PROFILE HERE</button>
+		</div>
+		</form>
+		</div>
+		</div>
+
+	 
+	
+</body>
+</html> 

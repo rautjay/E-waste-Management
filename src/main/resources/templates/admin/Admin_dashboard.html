@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="admin/Ad_base::layout(~{::body})">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	
+		<div class="container">
+		<div class="card my-5">
+		<div class="card-body">		
+	        
+	        <div class="container text-center">
+	             
+	             <img alt="profile image" style="height: 200px; width: 200px;" th:src="@{'/Image/userprofile.png'}">
+	        </div>
+	        <h1 class="text-center mt-2 text-secondary font-italic">
+	        Hello, You Can Update and Download Status report..!!!
+	        </h1>
+	        <a th:href="@{/admin/users_Request/0}" class="btn btn-success btn-block text-uppercase mt-3" > Start </a>
+		
+		</div>
+		
+		</div>
+		
+		</div>	
+   					
+						
+</body>
+</html>

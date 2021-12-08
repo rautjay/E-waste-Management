@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="user/base::layout(~{::body})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<div class="card ml-3 mr-4">
+		<div class="card-body" style="background-color:
+#eeeeee;" th:if=${request} >
+	
+
+		
+		<table class="table ml-1">
+			<thead class="bg-info">
+				<tr>
+					<td scope="col">NAME:</td>
+					<td scope="col"><span th:text="${user.userFirstname}"></span>
+					<span
+						th:text="${user.userLastname}"></span></td>
+						</tr>
+			</thead>
+			<tbody class="bg-info">
+				<tr>
+					<td scope="col">MOBILE:</td>
+					<td scope="col"><span th:text="${request.New_mobile}"></span></td>
+				</tr>
+				<tr>
+					<td scope="col">DECRIBTION:</td>
+					<td scope="col"><span th:text="${request.Request}"></span></td>
+				</tr>
+				<tr>
+					<td scope="col">DATE:</td>
+					<td scope="col"><span th:text="${request.Date}"></span></td>
+				</tr>
+				<tr style="color:yellow;" >
+					<th scope="col">STATUS:</th>
+					<th scope="col"><span  th:text="${request.Status}"></span>.....</th>
+				</tr>
+				<tr>
+					<td scope="col">ADDRESS:</td>
+					<td scope="col">'<span th:text="${user.userAddress.flatno}"></span>',
+					<span  th:text="${user.userAddress.streetname}"></span>,
+					<span  th:text="${user.userAddress.landmark}"></span>,
+					<span  th:text="${user.userAddress.city}"></span>,
+					<span  th:text="${user.state}"></span>.
+					 
+				</td>
+				</tr>
+				
+
+
+			</tbody>
+		</table>
+		</div>
+		<h1 th:unless="${request}">You dont have permission to see this request</h1>
+	</div>
+
+</body>
+</html>

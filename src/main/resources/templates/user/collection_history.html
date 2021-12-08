@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="user/base::layout(~{::body})">
+<head>
+<meta charset="UTF-8" />
+<title>Collection History</title>
+</head>
+<body>
+
+	<div class="card mr-3 ml-3">
+		<div class="card-body">
+			<h1 class="text-center" style="color:purple;">Your Request History!!</h1>
+			
+		<div class="table-responsive">
+		
+			<table class="table table-hover mt-4" style="color:navy;">
+				<thead class="bg-info">
+					<tr>
+						<th scope="col">DATE</th>
+						<th scope="col">DESCRIPTION</th>
+						<th scope="col">MOBILE</th>
+							<th scope="col">STATUS</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="R :${requests}">
+					
+						<td th:text="${R.Date}">Mark</td>
+						<td th:text="${R.Request}">Otto</td>
+						<td th:text="${R.New_mobile}">@mdo</td>
+						<td>@mdo</td>
+					
+				</tbody>
+			</table>
+		
+		</div>
+			
+		<!-- 	Pagination part -->
+		<nav aria-label="Page navigation example">
+  <ul class="pagination mt-4">
+
+    <li  th:if="${currentpage != 0}"  class="page-item"><a th:href="@{'/user/collection_history/'+${currentpage-1}}" class="page-link" href="#">Previous</a></li>
+
+    <li th:classappend="${currentpage==i-1?'active':''}"  th:each="i: ${#numbers.sequence(1,totalpages)}" class="page-item"><a th:href="@{'/user/collection_history/'+${i-1}}" class="page-link" href="#"><span th:text="${i}"></span></a></li>
+
+
+
+    <li th:if="${currentpage+1 != totalpages}" class="page-item"><a th:href="@{'/user/collection_history/'+${currentpage+1}}" class="page-link" href="#">Next</a></li>
+  </ul>
+</nav>
+			
+
+		</div>
+
+	</div>
+
+</body>
+</html>

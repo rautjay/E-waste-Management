@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:fragment="layout(content)">
+<head>
+<meta charset="UTF-8" />
+<title th:text=${title}>home page</title>
+<!-- 	common css from boot starp starting -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	crossorigin="anonymous"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- 	common css from boot strap ends here -->
+<!-- button icon link -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+	integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<link rel="stylesheet" th:href="@{/css/style_user.css}" />
+
+
+</head>
+<body>
+	<!-- Navbar starting from here -->
+	<nav class=" fixed-top navbar navbar-expand-lg navbar-dark bg-custom">
+		<div class="container-fluid ">
+			<i class="fa fa-etsy" style="font-size: 48px; color: #e6ee9c;"></i> <a
+				class="navbar-brand" href="#">WASTE MANAGEMENT</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><a class="nav-link"
+						th:href="@{/user/index}">Home <span class="sr-only">(current)</span>
+					</a></li>
+					<li class="nav-item active"><a class="nav-link">About <span
+							class="sr-only">(current)</span>
+					</a></li>
+					<li class="nav-item active"><a class="nav-link">Contact us
+							<span class="sr-only">(current)</span>
+					</a></li>
+
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> Services </a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="#">User Login</a> <a
+								class="dropdown-item" href="#">Vendor Login</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="#">Admin Login</a>
+						</div></li>
+				</ul>
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item active"><a class="nav-link">View
+							profile<span class="sr-only">(current)</span>
+					</a></li>
+					<li class="nav-item active"><a class="nav-link"
+						th:href="@{/logout}"> Logout <span class="sr-only">(current)</span>
+					</a></li>
+				</ul>
+			</div>
+
+		</div>
+	</nav>
+	<!-- navbar ends here -->
+	<!-- sidebar starting from here -->
+
+	<div class="sidebar mt-2">
+		<h1 class="welcome">
+			Welcome, <span th:text="${user.userFirstname}"></span>..
+		</h1>
+		<span onclick="togglesidebar()" class="cross-btn">&times;</span> <a
+			href="#" th:href="@{/user/index}" class="itam"> <i
+			class="fas fa-home"></i> Home
+		</a> <a th:href="@{/user/sendrequest}" class="itam"> <i
+			class="fas fa-paper-plane"></i> Send Request
+		</a> <a th:href="@{/user/view_status/0}" class="itam"> <i
+			class="fas fa-hourglass-start"></i> View Status
+		</a> <a th:href="@{/user/user_viewprofile}" href="#" class="itam"> <i class="fas fa-id-card-alt"></i> View
+			Profile
+		</a> <a th:href="@{/user/collection_history/0}" class="itam"> <i
+			class="fas fa-history"></i> Collection History
+		</a> <a href="#"  th:href="@{/user/settings}" class="itam"> <i class="fas fa-users-cog"></i>
+			Settings
+		</a> <a href="#" th:href="@{/logout}" class="itam"> <i
+			class="fas fa-sign-out-alt"></i> Logout
+		</a>
+
+		<div class="divider"></div>
+	</div>
+	<!-- End of side bar -->
+
+	<!-- start of content area -->
+
+	<div class="content">
+		<i onclick="togglesidebar()" class="fas fa-bars m-3"></i>
+		<!-- 	Lert message
+ -->
+		<div class="container">
+			
+			<div th:if="${session.message}"
+				th:classappend="${'alert-'+session.message.type}" class="alert"
+				role="alert">
+				<span th:text="${session.message.content}"> </span>
+			</div>
+			<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+		</div>
+
+		<div th:replace="${content}"></div>
+
+	</div>
+	
+	
+
+
+	<!-- end of content area -->
+	<!-- 	page layout ends here -->
+	
+	<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script th:src="@{/javascript/script.js}"></script>
+
+<!-- <!-- Sweet alerts script cdn -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+	
+
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="admin/Ad_base::layout(~{::body})">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+</head>
+<body>
+
+
+
+
+
+	<div class="card mr-3 ml-3">
+		<div class="card-body" style="background-color: #e2e2e2;">
+
+			
+
+			<!-- 	Search by city content -->
+
+			<div class="search-container my-2">
+
+				<input onkeyup="search()" id="search-input" type="text"
+					class="form-control" placeholder="Search User Requests">
+
+				<div class="search-result">
+					<!--  result comes here -->
+
+
+				</div>
+
+				<table class="table mt-3 text-center" style="color: purple;">
+					<thead class="bg-info">
+						<tr>
+							<th scope="col">Request_ID</th>
+							<th scope="col">DATE</th>
+
+							<th scope="col">City</th>
+							<th scope="col">STATUS</th>
+						</tr>
+					</thead>
+					<tbody style="background-color: #f1f8e9;">
+						<tr th:each="list :${Requestlist}">
+							<td scope="row" th:text="${'WMSU'+list.requestId}"></td>
+							<td scope="row" th:text="${list.Date}"></td>
+								<td scope="row" th:text="${city}"></td>
+
+
+							<td>
+						
+								<form  method="post"
+									th:action="@{'/admin/'+${list.requestId}+'/request_details'}">
+									<button type="submit" class="btn btn-primary btn-sm">
+										Update Status</button>
+                                    
+								</form>
+
+							</td>
+
+						</tr>
+						
+						
+						
+					</tbody>
+				</table>
+				
+
+				<!-- Pagination part --> 
+				
+				<nav aria-label="Page navigation example">
+  <ul class="pagination">
+
+    <li  th:if="${currentpage != 0}"  class="page-item"><a th:href="@{'/admin/users_Request/'+${currentpage-1}}" class="page-link" href="#">Previous</a></li>
+
+    <li th:classappend="${currentpage==i-1?'active':''}"  th:each="i: ${#numbers.sequence(1,totalpages)}" class="page-item"><a th:href="@{'/admin/users_Request/'+${i-1}}" class="page-link" href="#"><span th:text="${i}"></span></a></li>
+
+
+
+    <li th:if="${currentpage+1 != totalpages}" class="page-item"><a th:href="@{'/admin/users_Request/'+${currentpage+1}}" class="page-link" href="#">Next</a></li>
+  </ul>
+</nav>
+
+			</div>
+
+		</div>
+	</div>
+
+<!-- //for search function
+ -->
+<script type="text/javascript">
+
+
+const search =()=>{
+
+   let query=$("#search-input").val();
+
+
+   if(query=='')
+   {
+      $(".search-result").hide();
+
+   }else{
+      console.log(query);
+//sending request to server
+let url = `http://localhost:9192/search/${query}`;
+
+fetch(url).then((response) => {
+
+   return response.json();
+}).then((data) =>{
+//data.....
+console.log(data);
+ let text = `<div class ='list-group'>`;
+
+ data.forEach((request) => {
+    text += `<a href = '/admin/users_Request' class='list-group-item list-group-action'>[[${city}]]  </a> `
+ });
+
+ text += `</div>`;
+
+ 
+ $(".search-result").html(text);
+ $(".search-result").show();
+
+})
+
+
+
+
+   }
+};
+
+</script>
+
+
+
+
+</body>
+</html>

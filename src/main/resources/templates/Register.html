@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::layout(~{::body})">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+</head>
+<body>
+	<header class="signup">
+
+		<div th:if="${session.message_sucess}"
+			th:classappend="${session.message_sucess.type}"
+			class="alert alert-primary " role="alert">
+			<small th:text="${session.message_sucess.content}"></small> <a
+				th:href="@{/Login}" class="alert-link">Login Here</a> >
+
+			<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+		</div>
+
+
+		<div th:if="${session.message}"
+			th:classappend="${session.message.type}" class="alert alert-danger">
+			<small th:text="${session.message.content}"></small>
+			<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+
+		</div>
+
+
+
+
+
+
+		<div class="container">
+			<div class="row">
+
+				<div class="col-md-7"></div>
+
+
+				<div class="col-md-5">
+
+					<!--make 2 columns of 6 -->
+					<div class="row">
+						<div class="col-md-8">
+							<h3 class="text-left">Please Register here!!</h3>
+						</div>
+
+						<div class="col-md-6">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</div>
+					</div>
+					<hr>
+					<!-- make another column for textbox and label -->
+					<form novalidate class="form" th:action="@{/user_register}"
+						method="post" th:object="${user}">
+
+
+
+						<div class="row mt-3">
+							<label for="name_field" class="label col-md-2 control-label">
+								Name </label>
+							<div class="col-5">
+								<input name="userFirstname" id="name_field" type="text"
+									Class="form-control"
+									th:classappend="${#fields.hasErrors('userFirstname')? 'is-invalid':''}"
+									placeholder="First name" th:value="${user.userFirstname}" />
+								<div class="invalid-feedback"
+									th:each="e:${#fields.errors('userFirstname')}" th:text="${e}">
+								</div>
+							</div>
+
+							<div class="col-5">
+								<input name="userLastname" id="name_field" type="text"
+									Class="form-control"
+									th:classappend="${#fields.hasErrors('userLastname')? 'is-invalid':''}"
+									placeholder="Last name" th:value="${user.userLastname}" />
+								<div class="invalid-feedback"
+									th:each="e:${#fields.errors('userLastname')}" th:text="${e}">
+								</div>
+							</div>
+						</div>
+
+						<div class="row mt-3">
+							<label for="dob_field" class="label col-md-2 control-label">DOB</label>
+							<div class="col-md-6">
+								<input name="userDOB" id="dob_field" type="date"
+									class="form-control"
+									th:classappend="${#fields.hasErrors('userDOB')? 'is-invalid':''}"
+									th:value="${user.userDOB}" />
+								<div class="invalid-feedback"></div>
+
+							</div>
+						</div>
+
+
+						<div class="row mt-3">
+							<label for="userMobile_field"
+								class="label col-md-2 control-label">Mobile</label>
+							<div class="col-md-6">
+								<input name="usermobile" type="number" class="form-control"
+									th:classappend="${#fields.hasErrors('usermobile')? 'is-invalid':''}"
+									id="userMobile_field" placeholder="mobile number"
+									th:value="${user.usermobile}" />
+								<div class="invalid-feedback"
+									th:each="e:${#fields.errors('usermobile')}" th:text="${e}">
+								</div>
+
+
+							</div>
+						</div>
+
+						<div class="row mt-3">
+							<label for="Email_field" class="label col-md-2 control-label">Email</label>
+							<div class="col-md-6">
+								<input name="email" type="email" id="Email_field"
+									class="form-control"
+									th:classappend="${#fields.hasErrors('email')? 'is-invalid':''}"
+									placeholder="Enter your Email" required
+									th:value="${user.email}" />
+								<div class="invalid-feedback"
+									th:each="e:${#fields.errors('email')}" th:text="${e}"></div>
+
+							</div>
+						</div>
+						<div class="form-group row mt-3">
+							<label for="userpassword_field"
+								class="label col-md-2 control-label">Password</label>
+							<div class="col-md-6">
+								<input name="userpassword" type="password"
+									id="userpassword_field" class="form-control"
+									th:classappend="${#fields.hasErrors('userpassword')? 'is-invalid':''}"
+									placeholder="Enter your password"
+									th:value="${user.userpassword}" />
+								<div class="invalid-feedback"
+									th:each="e:${#fields.errors('userpassword')}" th:text="${e}">
+								</div>
+
+							</div>
+						</div>
+						<div class="row">
+							<label class="label col-md-2 control-label">Gender</label>
+							<div class="col-md-10"
+								th:classappend="${#fields.hasErrors('usergender')? 'is-invalid':''}">
+								<input name="usergender" type="radio" value="male"><small>Male</small>
+								<input name="usergender" type="radio" value="female"><small>Female</small>
+								<input name="gender" type="radio" value="other"><small>Other</small>
+							</div>
+							<div class="invalid-feedback"
+								th:each="e:${#fields.errors('usergender')}" th:text="${e}">
+							</div>
+						</div>
+
+						<div class="form-row mt-3">
+							<label for="userAddress" class="label col-md-2 control-label">Address
+							</label>
+							<div class="col-3">
+								<input name="userAddress.flatno" type="text"
+									class="form-control"
+									th:classappend="${#fields.hasErrors('userAddress.flatno')? 'is-invalid':''}"
+									placeholder="flat number" />
+								<div class="invalid-feedback"
+									th:each="e:${#fields.errors('userAddress.flatno')}"
+									th:text="${e}"></div>
+
+							</div>
+							<div class="col-4">
+								<input name="userAddress.streetname" type="text"
+									class="form-control"
+									th:classappend="${#fields.hasErrors('userAddress.streetname')? 'is-invalid':''}"
+									placeholder="street name" />
+								<div class="invalid-feedback"
+									th:each="e:${#fields.errors('userAddress.streetname')}"
+									th:text="${e}"></div>
+
+							</div>
+							<div class="col-3">
+								<input name="userAddress.landmark" type="text"
+									class="form-control"
+									th:classappend="${#fields.hasErrors('userAddress.landmark')? 'is-invalid':''}"
+									placeholder="Landmark" />
+								<div class="invalid-feedback"
+									th:each="e:${#fields.errors('userAddress.landmark')}"
+									th:text="${e}"></div>
+
+							</div>
+						</div>
+						<div class="form-row mt-3">
+							<label class="col-md-2 control-label"> </label>
+							<div class="col-4">
+								<input name="userAddress.city" type="text" class="form-control"
+									th:classappend="${#fields.hasErrors('userAddress.city')? 'is-invalid':''}"
+									placeholder="City" />
+								<div class="invalid-feedback"
+									th:each="e:${#fields.errors('userAddress.city')}"
+									th:text="${e}"></div>
+
+							</div>
+
+							<div class="col-5">
+								<input name="state" type="text" class="form-control"
+									th:classappend="${#fields.hasErrors('state')? 'is-invalid':''}"
+									placeholder="State" />
+								<div class="invalid-feedback"
+									th:each="e:${#fields.errors('state')}"
+									th:text="${e}"></div>
+
+							</div>
+						</div>
+						<!-- <div class="col-5">
+
+
+								<select  name="userAddress.state" class="form-control">
+									<option  value="">Maharashtra</option>
+									<option value="">Gujrat</option>
+									<option value="">Rajsthan</option>
+									<option value="">Uttar pradesh</option>
+									<option value="">Telangana</option>
+								</select> <
+
+							</div> -->
+
+						<div class="container">
+							<button type="submit" class="btn btn-success col-2 my-4 ml-5">Register</button>
+
+							<button type="reset" class="btn btn-warning col-2 my-4 ml-5">Reset</button>
+						</div>
+
+
+					</form>
+				</div>
+
+			</div>
+		</div>
+
+	</header>
+
+
+</body>
+</html>

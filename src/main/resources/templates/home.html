@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::layout(~{::body})">
+<head>
+<meta charset="UTF-8" />
+<title>Home page</title>
+</head>
+<body>
+	
+		<!-- page layout starts here -->
+		<header class="header">
+			<div class="container h-100">
+				<div class="row h-100">
+					<div class="col-md-12 text-center mt-5">
+
+						<h1 class="font-weight-bold">Welcome to Waste Management service</h1>
+						<p>E-waste is a popular, informal name for electronic
+							products nearing the end of their "useful life." Computers,
+							televisions, VCRs, stereos, copiers, and fax machines are common
+							electronic products.</p>
+
+						<div class="container text-center">
+							<a th:href="@{/Register}"  type="submit" class="btn btn-info col-2 ">Start</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</header>
+		<section class="massage py-5">
+			<div class="container text-center">
+
+				<h1>We know what you need!!</h1>
+				<p>Waste management, especially when it comes to plastic, has
+					been given much attention over the years in the country. Plastics
+					took centre stage in the country’s discourse on environmental
+					conservation this World Environment Day. Still, somehow, the issue
+					of e-waste, which is among the most dangerous kinds of waste — for
+					it contains heavy metals and other toxic chemicals — remains
+					insidious.</p>
+
+			</div>
+
+		</section>
+
+	
+</body>
+</html>
